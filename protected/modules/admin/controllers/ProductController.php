@@ -170,4 +170,23 @@ class ProductController extends Controller
 			Yii::app()->end();
 		}
 	}
+	
+	public function gridImage($data){
+		$html = '<image src="'.base_url().'/assets/images/products/'.$data->image.'" alt="'.$data->name.'" height="100" width="100">';
+		return html;
+	}
+	
+	public function gridImageType($data){
+		if($data->image_type == 'm'){
+			return "Main Image";	
+		} else if ($data->image_type == 't') {
+			return "Thumbnail";	
+		} else if ($data->image_type == 'g') {
+			return "Gallery Image";	
+		}
+	}
+	
+	public function gridRelated($data){
+		return Product::model()->findByPk($data->id)->name;
+	}
 }
