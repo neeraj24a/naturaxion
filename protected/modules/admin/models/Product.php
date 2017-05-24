@@ -60,6 +60,20 @@ class Product extends AdminBaseModel
 		return array(
 		);
 	}
+	
+	/**
+         * Behaviors for this model
+        */
+        public function behaviors() {
+            return array(
+                'slug' => array(
+                    'class' => 'ext.behaviors.SluggableBehavior.SluggableBehavior',
+                    'columns' => array('name'),
+                    'unique' => true,
+                    'update' => true,
+                ),
+            );
+        }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
