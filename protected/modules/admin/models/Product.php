@@ -42,11 +42,12 @@ class Product extends AdminBaseModel
 			array('quantity, in_stock, status, deleted', 'numerical', 'integerOnly'=>true),
 			array('id, category, created_by, modified_by', 'length', 'max'=>36),
 			array('sku', 'length', 'max'=>64),
+			array('price, offer_price', 'length', 'max'=>16),
 			array('name', 'length', 'max'=>256),
 			array('slug, short_desc', 'length', 'max'=>512),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, sku, name, category, slug, quantity, short_desc, description, in_stock, status, deleted, created_by, modified_by, date_entered, date_modified', 'safe', 'on'=>'search'),
+			array('id, sku, name, category, slug, quantity, price, offer_price, short_desc, description, in_stock, status, deleted, created_by, modified_by, date_entered, date_modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,6 +88,8 @@ class Product extends AdminBaseModel
 			'category' => 'Category',
 			'slug' => 'Slug',
 			'quantity' => 'Quantity',
+			'price' => 'Price (MRP)',
+			'offer_price' => 'Discounted Price',
 			'short_desc' => 'Short Desc',
 			'description' => 'Description',
 			'in_stock' => 'In Stock',

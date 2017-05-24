@@ -38,6 +38,18 @@
 	</div>
 	<div class="form-group">
 		<div class="col-xs-6">
+			<?php echo $form->labelEx($model,'price'); ?>
+			<?php echo $form->textField($model,'price',  array('size'=>'60','maxlength'=>'16','class' => 'form-control')); ?>
+			<?php echo $form->error($model,'price'); ?>
+		</div>
+		<div class="col-xs-6">
+			<?php echo $form->labelEx($model,'offer_price'); ?>
+			<?php echo $form->textField($model,'offer_price',array('size'=>'60','maxlength'=>'16','class' => 'form-control')); ?>
+			<?php echo $form->error($model,'offer_price'); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-xs-6">
 			<?php echo $form->labelEx($model,'in_stock'); ?>
 			<?php echo $form->checkBox($model,'in_stock',  array('checked'=>'checked','class' => 'form-control')); ?>
 			<?php echo $form->error($model,'in_stock'); ?>
