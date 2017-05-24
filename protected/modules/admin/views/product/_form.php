@@ -42,6 +42,11 @@
 			<?php echo $form->checkBox($model,'in_stock',  array('checked'=>'checked','class' => 'form-control')); ?>
 			<?php echo $form->error($model,'in_stock'); ?>
 		</div>
+		<div class="col-xs-6">
+			<?php echo $form->labelEx($model,'price'); ?>
+			<?php echo $form->textField($model,'price',array('size'=>'60','maxlength'=>'16','class' => 'form-control')); ?>
+			<?php echo $form->error($model,'price'); ?>
+		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-xs-12">
@@ -59,7 +64,7 @@
 	</div>
 </div>
 <div class="box-footer">
-    <?php echo CHtml::link('Back', array('/admin/product'), array("class" => 'btn btn-info pull-right', "style" => "margin-left:10px;")); ?>
+    <?php echo CHtml::link('Back', array('/admin/category'), array("class" => 'btn btn-info pull-right', "style" => "margin-left:10px;")); ?>
     <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => 'btn btn-info pull-right')); ?>
 </div>
 <?php $this->endWidget(); ?>
