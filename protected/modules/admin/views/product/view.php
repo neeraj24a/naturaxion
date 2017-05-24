@@ -68,7 +68,7 @@
                                 $this->widget('zii.widgets.grid.CGridView', array(
                                     'id' => 'product-gallery-grid',
                                     'itemsCssClass' => 'table table-bordered table-hover dataTable',
-                                    'dataProvider' => $gallery->images($model->id),
+                                    'dataProvider' => $gallery->search($model->id),
                                     'enablePagination' => true,
                                     'columns' => array(
                                         array(
@@ -125,7 +125,7 @@
                                 $this->widget('zii.widgets.grid.CGridView', array(
                                     'id' => 'related-products-grid',
                                     'itemsCssClass' => 'table table-bordered table-hover dataTable',
-                                    'dataProvider' => $related->products($model->id),
+                                    'dataProvider' => $related->search($model->id),
                                     'enablePagination' => true,
                                     'columns' => array(
                                         array(
