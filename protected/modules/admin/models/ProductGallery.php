@@ -86,14 +86,18 @@ class ProductGallery extends AdminBaseModel
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($product = null)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('product',$this->product,true);
+		if($product == null){
+			$criteria->compare('product',$this->product,true);
+		} else {
+			$criteria->compare('product',$product);
+		}
 		$criteria->compare('image_type',$this->image_type,true);
 		$criteria->compare('image',$this->image,true);
 		$criteria->compare('status',$this->status);
