@@ -69,9 +69,15 @@ class ProductController extends Controller
 
 		if(isset($_POST['Product']))
 		{
+			$save_to = $_POST['Product']['save_to'];
 			$model->attributes=$_POST['Product'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+				if($save_to == 1){
+					$this->redirect(array('productGallery/create','id'=>$model->id));
+				} else {
+					$this->redirect(array('view','id'=>$model->id));
+				}
+			}
 		}
 
 		$this->render('create',array(
@@ -93,9 +99,14 @@ class ProductController extends Controller
 
 		if(isset($_POST['Product']))
 		{
+			$save_to = $_POST['Product']['save_to'];
 			$model->attributes=$_POST['Product'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				if($save_to == 1){
+					$this->redirect(array('productGallery/update','id'=>$model->id));
+				} else {
+					$this->redirect(array('view','id'=>$model->id));
+				}
 		}
 
 		$this->render('update',array(
