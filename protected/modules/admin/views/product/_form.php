@@ -74,7 +74,7 @@
 			<?php echo $form->error($model,'description'); ?>
 		</div>
 	</div>
-	<?php echo $form->hiddenField($model,'short_desc',  array('value'=>'0', 'id' => 'save_to')); ?>
+	<?php echo $form->hiddenField($model,'save_to',  array('value'=>'0', 'id' => 'save_to')); ?>
 </div>
 <div class="box-footer">
     <?php echo CHtml::link('Back', array('/admin/product'), array("class" => 'btn btn-info pull-right', "style" => "margin-left:10px;")); ?>
