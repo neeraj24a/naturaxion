@@ -74,9 +74,19 @@
 			<?php echo $form->error($model,'description'); ?>
 		</div>
 	</div>
+	<?php echo $form->hiddenField($model,'short_desc',  array('value'=>'0', 'id' => 'save_to')); ?>
 </div>
 <div class="box-footer">
     <?php echo CHtml::link('Back', array('/admin/product'), array("class" => 'btn btn-info pull-right', "style" => "margin-left:10px;")); ?>
-    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => 'btn btn-info pull-right')); ?>
+    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => 'btn btn-info pull-right', "id" => "save_to_pg")); ?>
+    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save & Goto Product Gallery', array("class" => 'btn btn-info pull-right', "id" => "save_to_pg")); ?>
 </div>
 <?php $this->endWidget(); ?>
+<script>
+	$(document).ready(function(){
+		$("#save_to_pg").click(function(){
+			$("#save_to").val("1");
+			return true;
+		});
+	});
+</script>
