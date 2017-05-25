@@ -25,6 +25,7 @@ class Product extends AdminBaseModel
 	/**
 	 * @return string the associated database table name
 	 */
+	public $save_to;
 	public function tableName()
 	{
 		return 'product';
@@ -38,8 +39,8 @@ class Product extends AdminBaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, sku, name, category, slug, description, created_by, modified_by, date_entered, date_modified', 'required'),
-			array('quantity, in_stock, status, deleted', 'numerical', 'integerOnly'=>true),
+			array('id, save_to, sku, name, category, slug, description, created_by, modified_by, date_entered, date_modified', 'required'),
+			array('quantity, in_stock, status, save_to, deleted', 'numerical', 'integerOnly'=>true),
 			array('id, category, created_by, modified_by', 'length', 'max'=>36),
 			array('sku', 'length', 'max'=>64),
 			array('price, offer_price', 'length', 'max'=>16),
