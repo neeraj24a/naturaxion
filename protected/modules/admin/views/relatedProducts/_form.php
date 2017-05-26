@@ -1,3 +1,4 @@
+<script src="<?php echo base_url().'/themes/admin/dist/js/bootstrap-multiselect.js'; ?>"></script>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'related-products-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -30,11 +31,9 @@
 					$attrs); ?>
 			<?php echo $form->error($model,'product'); ?>
 		</div>
-	</div>
-	<div class="form-group">
 		<div class="col-xs-6">
 			<?php echo $form->labelEx($model,'related'); ?>
-			<?php echo $form->dropDownList($model,'related',$products,array('empty'=>'Select Related Product','id' => 'related_product_list','class' => 'form-control')); ?>
+			<?php echo CHtml::dropDownList('RelatedProducts[related][]', 0,array('empty'=>'Select Related Product','id' => 'related_product_list','class' => 'form-control')); ?>
 			<?php echo $form->error($model,'related'); ?>
 		</div>
 	</div>
@@ -44,7 +43,11 @@
     <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => 'btn btn-info pull-right')); ?>
 </div>
 <?php $this->endWidget(); ?>
-
+<script>
+	$(document).ready(function(){
+		$('#related_product_list').multiselect();
+	});
+</script>
 <?php if($product !== null): ?>
 <script>
 	$(document).ready(function(){
