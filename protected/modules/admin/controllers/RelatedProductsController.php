@@ -54,7 +54,7 @@ class RelatedProductsController extends Controller
 			}
 			//$model->attributes=$_POST['RelatedProducts'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('product/view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -91,7 +91,7 @@ class RelatedProductsController extends Controller
 			}
 			//$model->attributes=$_POST['RelatedProducts'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('product/view','id'=>$model->id));
 		}
 
 		/*if($p === null){
