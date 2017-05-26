@@ -45,9 +45,22 @@ class ProductGalleryController extends Controller
 
 		if(isset($_POST['ProductGallery']))
 		{
-			$model->attributes=$_POST['ProductGallery'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$r = count($_POST['ProductGallery']['image']);
+			for ($i=0; $i<$r; $i++) {
+				$model = new ProductGallery;
+				$name = $_POST['ProductGallery']['image'][$i]['name'];
+				$tmp_name = $_POST['ProductGallery']['image'][$i]['tmp_name'];
+				$type = $_POST['ProductGallery']['image'][$i]['type'];
+				$image = uploadImage($name, $type, $tmp_name, $path);
+				$model->image = $image;
+				$model->image_type = $_POST['ProductGallery']['image_type'][$i];
+				$model->product = $_POST['ProductGallery']['product'];
+				$model->save();
+			}
+			$this->redirect(array('product/view','id'=>$model->id));
+			//$model->attributes=$_POST['ProductGallery'];
+			//if($model->save())
+				//$this->redirect(array('product/view','id'=>$model->id));
 		}
 		$this->render('create',array(
 			'model'=>$model,
@@ -66,6 +79,7 @@ class ProductGalleryController extends Controller
 		if($p === null){
 			$model=$this->loadModel($id);
 		} else {
+			$model = new ProductGallery;
 			$gallery = ProductGallery::model()->findAll(array("condition" => "product = '".$id."'"));
 		}
 
@@ -74,19 +88,30 @@ class ProductGalleryController extends Controller
 
 		if(isset($_POST['ProductGallery']))
 		{
-			$model->attributes=$_POST['ProductGallery'];
+			ProductGallery::model()->deleteAll(['product' => $_POST['ProductGallery']['product']]);
+			$r = count($_POST['ProductGallery']['image']);
+			for ($i=0; $i<$r; $i++) {
+				$model = new ProductGallery;
+				$name = $_POST['ProductGallery']['image'][$i]['name'];
+				$tmp_name = $_POST['ProductGallery']['image'][$i]['tmp_name'];
+				$type = $_POST['ProductGallery']['image'][$i]['type'];
+				$image = uploadImage($name, $type, $tmp_name, $path);
+				$model->image = $image;
+				$model->image_type = $_POST['ProductGallery']['image_type'][$i];
+				$model->product = $_POST['ProductGallery']['product'];
+				$model->save();
+			}
+			$this->redirect(array('product/view','id'=>$model->id));
+			
+			/*$model->attributes=$_POST['ProductGallery'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('product/view','id'=>$model->id));*/
 		}
-		if($p === null){
-			$this->render('update',array(
-				'model'=>$model,
-			));
-		} else {
-			$this->render('product-gallery-update',array(
-				'gallery'=>$gallery,
-			));
-		}
+		$this->render('update',array(
+			'model' => $model,
+			'gallery'=>$gallery,
+			'product'=>$id
+		));
 	}
 
 	/**
