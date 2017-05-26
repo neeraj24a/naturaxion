@@ -47,7 +47,12 @@ class RelatedProductsController extends Controller
 
 		if(isset($_POST['RelatedProducts']))
 		{
-			$model->attributes=$_POST['RelatedProducts'];
+			$r = count($_POST['RelatedProducts']['related']);
+			for ($i=0; $i<$r; $i++) {
+				$model->product = $_POST['RelatedProducts']['product'];
+				$model->related = $_POST['RelatedProducts']['product'][$r];
+			}
+			//$model->attributes=$_POST['RelatedProducts'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -77,7 +82,14 @@ class RelatedProductsController extends Controller
 
 		if(isset($_POST['RelatedProducts']))
 		{
-			$model->attributes=$_POST['RelatedProducts'];
+			RelatedProducts::model()->deleteAll(['product' => $_POST['RelatedProducts']['product']]);
+			$r = count($_POST['RelatedProducts']['related']);
+			for ($i=0; $i<$r; $i++) {
+				$model = new RelatedProducts;
+				$model->product = $_POST['RelatedProducts']['product'];
+				$model->related = $_POST['RelatedProducts']['product'][$r];
+			}
+			//$model->attributes=$_POST['RelatedProducts'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
