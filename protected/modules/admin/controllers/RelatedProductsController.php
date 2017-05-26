@@ -50,7 +50,7 @@ class RelatedProductsController extends Controller
 			$r = count($_POST['RelatedProducts']['related']);
 			for ($i=0; $i<$r; $i++) {
 				$model->product = $_POST['RelatedProducts']['product'];
-				$model->related = $_POST['RelatedProducts']['product'][$r];
+				$model->related = $_POST['RelatedProducts']['product'][$i];
 			}
 			//$model->attributes=$_POST['RelatedProducts'];
 			if($model->save())
@@ -87,7 +87,7 @@ class RelatedProductsController extends Controller
 			for ($i=0; $i<$r; $i++) {
 				$model = new RelatedProducts;
 				$model->product = $_POST['RelatedProducts']['product'];
-				$model->related = $_POST['RelatedProducts']['product'][$r];
+				$model->related = $_POST['RelatedProducts']['product'][$i];
 			}
 			//$model->attributes=$_POST['RelatedProducts'];
 			if($model->save())
