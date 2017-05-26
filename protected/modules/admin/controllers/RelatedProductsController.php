@@ -69,7 +69,7 @@ class RelatedProductsController extends Controller
 		if($p === null){
 			$model=$this->loadModel($id);
 		} else {
-			$products = ProductGallery::model()->findAll(array("condition" => "product = '".$id."'"));
+			$products = RelatedProducts::model()->findAll(array("condition" => "product = '".$id."'"));
 		}
 
 		// Uncomment the following line if AJAX validation is needed
@@ -82,15 +82,15 @@ class RelatedProductsController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		if($p === null){
+		/*if($p === null){
 			$this->render('update',array(
 				'model'=>$model,
 			));
-		} else {
+		} else {*/
 			$this->render('related-update',array(
 				'products'=>$products,
 			));
-		}
+		//}
 	}
 
 	/**
@@ -128,6 +128,18 @@ class RelatedProductsController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+	
+	public function actionPopulateRelated()
+	{
+		$parent = $_POST['parent'];
+		$products = Product::model()->findAll(array("condition" => "id <> '".$id."'"));
+		$html = '<option value="">Select Related Products</option>';
+		foreach($products as $product){
+			$html .= '<option value="'.$product->id.'">'.$product->name.'</option>';
+		}
+		
+		echo $html;
 	}
 
 	/**
