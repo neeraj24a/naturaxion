@@ -1,11 +1,3 @@
-<?php
-/* @var $this ProductGalleryController */
-/* @var $model ProductGallery */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'product-gallery-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -13,76 +5,57 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id'); ?>
-		<?php echo $form->textField($model,'id',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'id'); ?>
+<div class="box-body" id="container">
+	<div class="form-group">
+		<div class="col-xs-6">
+			<?php echo $form->labelEx($model,'product'); ?>
+			<?php 
+				$attrs = array('empty'=>'Select Product','class' => 'form-control');
+				if($product !== null){
+					$model->product = $product;
+					$attrs = array('empty'=>'Select Product',"disabled" => "disabled",'class' => 'form-control');
+				}
+				$products = CHtml::listData(Product::model()->findAll(), 'id', 'name');
+			?>
+			<?php echo $form->dropDownList($model,'product',$products,$attrs); ?>
+			<?php echo $form->error($model,'product'); ?>
+		</div>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'product'); ?>
-		<?php echo $form->textField($model,'product',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'product'); ?>
+	<div class="form-group" id="row">
+		<div class="col-xs-5">
+			<?php echo $form->labelEx($model,'image_type'); ?>
+			<?php echo CHtml::dropDownList('ProductGallery[image_type][]',array('m' => 'Main Image','g' => 'Gallery Image','t' => 'Thumbnail'),array('empty'=>'Select Image Type','class' => 'form-control')); ?>
+			<?php echo $form->error($model,'image_type'); ?>
+		</div>
+		<div class="col-xs-6">
+			<?php echo $form->labelEx($model,'image'); ?>
+			<?php echo CHtml::fileField('ProductGallery[image][]', 0,array('class' => 'form-control')); ?>
+			<?php echo $form->error($model,'image'); ?>
+		</div>
+		<div class="col-xs-1">
+			<a href="javascript:void(0);" class="add-row">Add More Image</a>
+		</div>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'image_type'); ?>
-		<?php echo $form->textField($model,'image_type',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'image_type'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'image'); ?>
-		<?php echo $form->textField($model,'image',array('size'=>60,'maxlength'=>512)); ?>
-		<?php echo $form->error($model,'image'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-		<?php echo $form->error($model,'status'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'deleted'); ?>
-		<?php echo $form->textField($model,'deleted'); ?>
-		<?php echo $form->error($model,'deleted'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_by'); ?>
-		<?php echo $form->textField($model,'created_by',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'created_by'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified_by'); ?>
-		<?php echo $form->textField($model,'modified_by',array('size'=>36,'maxlength'=>36)); ?>
-		<?php echo $form->error($model,'modified_by'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'date_entered'); ?>
-		<?php echo $form->textField($model,'date_entered'); ?>
-		<?php echo $form->error($model,'date_entered'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'date_modified'); ?>
-		<?php echo $form->textField($model,'date_modified'); ?>
-		<?php echo $form->error($model,'date_modified'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+</div>
+<div class="box-footer">
+	<?php echo CHtml::link('Back', array('/admin/productGallery'), array("class" => 'btn btn-info pull-right', "style" => "margin-left:10px;")); ?>
+	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => 'btn btn-info pull-right')); ?>
+</div>
 
 <?php $this->endWidget(); ?>
 
-</div><!-- form -->
+<script>
+	$(document).ready(function(){
+		var row = $("#row").html();
+		var r = row.find("a.add-row").text("Delete").addClass("removeRow").removeClass("add-row");
+		$(document).on("click",".add-row",function(){
+			$("#container").append(r);
+		});
+		$(document).on("click",".removeRow",function(){
+			$(this).parent().parent().remove();
+		});
+	});
+</script>
