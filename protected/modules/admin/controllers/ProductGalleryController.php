@@ -36,8 +36,12 @@ class ProductGalleryController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id = null)
+	public function actionCreate($product = null)
 	{
+		$p = Product::model()->findByPk($product);
+		if($p === null){
+			$this->redirect(array('product/manage'));
+		}
 		$model=new ProductGallery;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -45,26 +49,28 @@ class ProductGalleryController extends Controller
 
 		if(isset($_POST['ProductGallery']))
 		{
-			$r = count($_POST['ProductGallery']['image']);
+			//pre($_POST['ProductGallery']);
+			//pre($_FILES['ProductGallery'], true);
+			$r = count($_FILES['ProductGallery']['name']);
 			for ($i=0; $i<$r; $i++) {
 				$model = new ProductGallery;
-				$name = $_POST['ProductGallery']['image'][$i]['name'];
-				$tmp_name = $_POST['ProductGallery']['image'][$i]['tmp_name'];
-				$type = $_POST['ProductGallery']['image'][$i]['type'];
-				$image = uploadImage($name, $type, $tmp_name, $path);
+				$name = $_FILES['ProductGallery']['name']['image'][$i];
+				$tmp_name = $_FILES['ProductGallery']['tmp_name']['image'][$i];
+				$type = $_FILES['ProductGallery']['type']['image'][$i];
+				$image = uploadImage($name, $type, $tmp_name);
 				$model->image = $image;
 				$model->image_type = $_POST['ProductGallery']['image_type'][$i];
-				$model->product = $_POST['ProductGallery']['product'];
+				$model->product = $product;
 				$model->save();
 			}
-			$this->redirect(array('product/view','id'=>$model->id));
+			$this->redirect(array('product/view','id'=>$product));
 			//$model->attributes=$_POST['ProductGallery'];
 			//if($model->save())
 				//$this->redirect(array('product/view','id'=>$model->id));
 		}
 		$this->render('create',array(
 			'model'=>$model,
-			'product'=>$id
+			'product'=>$product
 		));
 	}
 
@@ -75,11 +81,14 @@ class ProductGalleryController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$p = Product::model->findByPk($id);
+		$p = Product::model()->findByPk($id);
 		if($p === null){
 			$model=$this->loadModel($id);
+			$product = $model->product;
+			$gallery = ProductGallery::model()->findAll(array("condition" => "product = '".$model->product."'"));
 		} else {
 			$model = new ProductGallery;
+			$product = $id;
 			$gallery = ProductGallery::model()->findAll(array("condition" => "product = '".$id."'"));
 		}
 
@@ -89,12 +98,12 @@ class ProductGalleryController extends Controller
 		if(isset($_POST['ProductGallery']))
 		{
 			ProductGallery::model()->deleteAll(['product' => $_POST['ProductGallery']['product']]);
-			$r = count($_POST['ProductGallery']['image']);
+			$r = count($_FILES['ProductGallery']['image']);
 			for ($i=0; $i<$r; $i++) {
 				$model = new ProductGallery;
-				$name = $_POST['ProductGallery']['image'][$i]['name'];
-				$tmp_name = $_POST['ProductGallery']['image'][$i]['tmp_name'];
-				$type = $_POST['ProductGallery']['image'][$i]['type'];
+				$name = $_FILES['ProductGallery']['image'][$i]['name'];
+				$tmp_name = $_FILES['ProductGallery']['image'][$i]['tmp_name'];
+				$type = $_FILES['ProductGallery']['image'][$i]['type'];
 				$image = uploadImage($name, $type, $tmp_name, $path);
 				$model->image = $image;
 				$model->image_type = $_POST['ProductGallery']['image_type'][$i];
@@ -110,7 +119,7 @@ class ProductGalleryController extends Controller
 		$this->render('update',array(
 			'model' => $model,
 			'gallery'=>$gallery,
-			'product'=>$id
+			'product'=>$product
 		));
 	}
 

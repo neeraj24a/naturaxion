@@ -1,4 +1,3 @@
-<script src="<?php echo base_url().'/themes/admin/dist/js/bootstrap-multiselect.js'; ?>"></script>
 <section class="content-header">
   <h1>
     Update
@@ -15,8 +14,7 @@
 		<div class="col-xs-12">
 			<div class="box box-info">
 				<div class="box-header with-border">
-					<?php $p = Product::model()->findByPk($product); ?>
-					<h3 class="box-title"><?php echo $p->name; ?></h3>
+					<h3 class="box-title"><?php echo $product->name; ?></h3>
 				</div>
 				<?php $form=$this->beginWidget('CActiveForm', array(
 					'id'=>'related-products-form',
@@ -27,8 +25,8 @@
 					'enableAjaxValidation'=>false,
 				)); ?>
 				<div class="box-body">
-					<div class="form-group">
-						<div class="col-xs-6">
+					<div class="col-xs-6">
+						<div class="form-group">
 							<?php echo $form->labelEx($model,'product'); ?>
 							<?php 
 								$attrs = array('empty'=>'Select Product','class' => 'form-control');
@@ -39,21 +37,22 @@
 								$products = CHtml::listData(Product::model()->findAll(), 'id', 'name');
 							?>
 							<?php echo $form->dropDownList($model,'product',$products,
+									$attrs,
 									array(
 										'ajax' => array(
 										'type'=>'POST', //request type
 										'url'=>CController::createUrl('relatedProducts/populateRelated'), //url to call.
 										'update'=>'#related_product_list', //selector to update
 										'data' => array('parent', 'js:this.value'),
-									)),
-									$attrs); ?>
+									))
+									); ?>
 							<?php echo $form->error($model,'product'); ?>
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="col-xs-6">
+					<div class="col-xs-6">
+						<div class="form-group">
 							<?php echo $form->labelEx($model,'related'); ?>
-							<?php echo CHtml::dropDownList('RelatedProducts[related][]', 0,array('empty'=>'Select Related Product','id' => 'related_product_list','class' => 'form-control')); ?>
+							<?php echo CHtml::dropDownList('RelatedProducts[related][]', [],[],array('empty'=>'Select Related Product','id' => 'related_product_list','class' => 'form-control','multiple' => 'multiple')); ?>
 							<?php echo $form->error($model,'related'); ?>
 						</div>
 					</div>
@@ -63,20 +62,15 @@
 					<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => 'btn btn-info pull-right')); ?>
 				</div>
 				<?php $this->endWidget(); ?>
-				<script>
-					$(document).ready(function(){
-						$('#related_product_list').multiselect();
-					});
-				</script>
 				<?php if($product !== null): ?>
 				<script>
 					$(document).ready(function(){
-						var product = "<?php echo $product; ?>";
+						var product = "<?php echo $product->id; ?>";
 						$.ajax({
 							'type':'POST', //request type
 							'url': "<?php echo CController::createUrl('relatedProducts/populateRelated'); ?>",
 							'update':'#related_product_list', //selector to update
-							'data' : array('parent', '<?php echo $product; ?>'),
+							'data' : { parent: product },
 							'success' : function(data){
 								$('#related_product_list').html(data);
 							}

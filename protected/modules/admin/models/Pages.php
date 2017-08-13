@@ -35,7 +35,7 @@ class Pages extends AdminBaseModel
 			array('id, page_name, description, created_by, modified_by, date_entered, date_modified', 'required'),
 			array('status, deleted', 'numerical', 'integerOnly'=>true),
 			array('id, created_by, modified_by', 'length', 'max'=>36),
-			array('page_name', 'length', 'max'=>1),
+			array('page_name', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, page_name, description, status, deleted, created_by, modified_by, date_entered, date_modified', 'safe', 'on'=>'search'),

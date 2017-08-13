@@ -28,7 +28,7 @@
 				)); ?>
 
 				<div class="box-body" id="container">
-					<div class="form-group">
+					<div class="form-group pull-left" style="width:100%;">
 						<div class="col-xs-6">
 							<?php echo $form->labelEx($model,'product'); ?>
 							<?php 
@@ -48,14 +48,12 @@
 						foreach($gallery as $g): 
 						$sel = [];
 						$sel[$g->image_type] = array('selected' => true);
+						//pre($sel);
 					?>
-					<div class="form-group" id="row">
+					<div class="form-group pull-left" style="width:100%;" id="row">
 						<div class="col-xs-5">
 							<?php echo $form->labelEx($model,'image_type'); ?>
-							<?php echo CHtml::dropDownList('ProductGallery[image_type][]',
-										array('m' => 'Main Image','g' => 'Gallery Image','t' => 'Thumbnail'),
-										array('empty'=>'Select Image Type','class' => 'form-control'),
-										array('options' => $sel)); ?>
+							<?php echo CHtml::dropDownList('ProductGallery[image_type][]',0,array('m' => 'Main Image','g' => 'Gallery Image','t' => 'Thumbnail'),array('empty'=>'Select Image Type','class' => 'form-control','options' => $sel)); ?>
 							<?php echo $form->error($model,'image_type'); ?>
 						</div>
 						<div class="col-xs-6">
@@ -65,9 +63,9 @@
 						</div>
 						<div class="col-xs-1">
 							<?php if($i == 0): ?>
-								<a href="javascript:void(0);" class="add-row">Add More Image</a>
+								<a href="javascript:void(0);" class="add-row"><i class="fa fa-plus"></i></a>
 							<?php else: ?>
-								<a href="javascript:void(0);" class="removeRow">Delete Image</a>
+								<a href="javascript:void(0);" class="removeRow"><i class="fa fa-minus"></i></a>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -81,17 +79,16 @@
 				<?php $this->endWidget(); ?>
 				<script>
 					$(document).ready(function(){
-						var row = $("#row").html();
-						var r = row.find("a.add-row").text("Delete").addClass("removeRow").removeClass("add-row");
+						var row = $("#row");
 						$(document).on("click",".add-row",function(){
-							$("#container").append(r);
+							$("#row").clone().appendTo("#container").find("a.add-row").html('<i class="fa fa-minus"></i>').addClass("removeRow").removeClass("add-row");
 						});
 						$(document).on("click",".removeRow",function(){
 							$(this).parent().parent().remove();
 						});
 					});
 				</script>
-				<?php endif; ?>
+				
 			</div>
 		</div>
 	</div>

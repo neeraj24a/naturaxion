@@ -9,7 +9,7 @@ $global = array(
     'user_payment_status' => array('a' => 'Approved', 'p' => 'Pending', 'c' => 'Cancel'),
     'charge_type' => array('processing' => 'Processing','transaction' => 'Transaction'),
     'genre_for' => array('song' => 'Song','video' => 'Video'),
-	'page_name' => array('a' => 'About Us','c' => 'Contact Us','t' => 'Terms'),
+    'page_name' => array('a' => 'About Us','c' => 'Contact Us','t' => 'Terms','m' => 'Misson', 'v' => 'Vision', 'as' => 'Aspiration', 'q' => 'Quality', 'te' => 'Technology', 'mar' => 'Marketing', 'ot' => 'Our Team', 'why' => 'Why Naturaxion'),
     'months' => array(
                     '1' => 'January',
                     '2' => 'February',

@@ -4747,3 +4747,7 @@ a.btn-warning{
     padding: 5px 10px;
     margin-right: 15px;
 }
+
+a.add-row i,a.removeRow i {
+	margin-top: 33px;
+}

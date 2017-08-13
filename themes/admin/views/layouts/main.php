@@ -94,7 +94,7 @@
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li><a href="<?php echo base_url()."/admin/category"; ?>"><i class="fa fa-users"></i> <span>Categories</span></a></li>
-            <li><a href="<?php echo base_url()."/admin/products"; ?>"><i class="fa fa-users"></i> <span>Products</span></a></li>
+            <li><a href="<?php echo base_url()."/admin/product"; ?>"><i class="fa fa-users"></i> <span>Products</span></a></li>
             <li><a href="<?php echo base_url()."/admin/pages"; ?>"><i class="fa fa-users"></i> <span>Page Contents</span></a></li>
             <li><a href="<?php echo base_url()."/admin/qna"; ?>"><i class="fa fa-users"></i> <span>Q&A</span></a></li>
             <li><a href="<?php echo base_url()."/admin/banners"; ?>"><i class="fa fa-users"></i> <span>Banners</span></a></li>
@@ -126,7 +126,7 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-      $.widget.bridge('uibutton', $.ui.button);
+      //$.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 3.3.5 -->
     <script src="<?php echo $baseUrl;?>/bootstrap/js/bootstrap.min.js"></script>

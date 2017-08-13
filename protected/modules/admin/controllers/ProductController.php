@@ -26,8 +26,16 @@ class ProductController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$gallery=new ProductGallery('search');
+		$gallery->unsetAttributes();  // clear any default values
+		
+		$related=new RelatedProducts('search');
+		$related->unsetAttributes();  // clear any default values
+		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'gallery'=>$gallery,
+			'related'=>$related
 		));
 	}
 
@@ -44,14 +52,10 @@ class ProductController extends Controller
 
 		if(isset($_POST['Product']))
 		{
-			$save_to = $_POST['Product']['save_to'];
+			//pre($_POST['Product'], true);
 			$model->attributes=$_POST['Product'];
 			if($model->save()){
-				if($save_to == 1){
-					$this->redirect(array('productGallery/create','id'=>$model->id));
-				} else {
-					$this->redirect(array('view','id'=>$model->id));
-				}
+				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
@@ -74,14 +78,9 @@ class ProductController extends Controller
 
 		if(isset($_POST['Product']))
 		{
-			$save_to = $_POST['Product']['save_to'];
 			$model->attributes=$_POST['Product'];
 			if($model->save())
-				if($save_to == 1){
-					$this->redirect(array('productGallery/update','id'=>$model->id));
-				} else {
-					$this->redirect(array('view','id'=>$model->id));
-				}
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -156,8 +155,8 @@ class ProductController extends Controller
 	}
 	
 	public function gridImage($data){
-		$html = '<image src="'.base_url().'/assets/images/products/'.$data->image.'" alt="'.$data->name.'" height="100" width="100">';
-		return html;
+		$html = '<image src="'.base_url().'/images/products/'.$data->image.'" height="100" width="100">';
+		return $html;
 	}
 	
 	public function gridImageType($data){
@@ -171,6 +170,10 @@ class ProductController extends Controller
 	}
 	
 	public function gridRelated($data){
-		return Product::model()->findByPk($data->id)->name;
+		return Product::model()->findByPk($data->related)->name;
+	}
+	
+	public function gridCategory($data){
+		return Category::model()->findByPk($data->category)->name;
 	}
 }

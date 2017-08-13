@@ -25,7 +25,6 @@ class Product extends AdminBaseModel
 	/**
 	 * @return string the associated database table name
 	 */
-	public $save_to;
 	public function tableName()
 	{
 		return 'product';
@@ -39,8 +38,8 @@ class Product extends AdminBaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, save_to, sku, name, category, slug, description, created_by, modified_by, date_entered, date_modified', 'required'),
-			array('quantity, in_stock, status, save_to, deleted', 'numerical', 'integerOnly'=>true),
+			array('id, sku, name, category, description, created_by, modified_by, date_entered, date_modified', 'required'),
+			array('quantity, in_stock, status, deleted', 'numerical', 'integerOnly'=>true),
 			array('id, category, created_by, modified_by', 'length', 'max'=>36),
 			array('sku', 'length', 'max'=>64),
 			array('price, offer_price', 'length', 'max'=>16),
@@ -60,6 +59,8 @@ class Product extends AdminBaseModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+                    'product_main_image' => array(self::HAS_MANY,'ProductGallery','product','condition' =>'product_main_image.image_type = "m"'),
+                    'product_gallery_image' => array(self::HAS_MANY,'ProductGallery','product','condition' =>'product_gallery_image.image_type = "g"'),
 		);
 	}
 	

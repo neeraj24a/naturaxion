@@ -59,23 +59,26 @@
                                     'columns' => array(
                                         'sku',
 										'name',
-										'category',
+										array(
+											'name' => 'category',
+											'value' => array($this, 'gridCategory')
+										),
                                         array(
                                             'class'=>'CButtonColumn',
                                             'template'=>'{r} {g} {v} {u} {d}', // <-- TEMPLATE WITH THE TWO STATES
                                             'htmlOptions'=>array(
-                                                    'width'=>80,
+                                                    'width'=>120,
                                             ),
                                             'buttons' => array(
                                                 'r'=>array(
-                                                        'label'=>'<i class="fa fa-search"></i>',
-                                                        'url'=>'Yii::app()->createUrl("admin/relatedProduct/view", array("product"=>$data->id))',
-                                                        'options'=>array('class'=>'view','title'=>'View'),
+                                                        'label'=>'<i class="fa fa-chain"></i>',
+                                                        'url'=>'Yii::app()->createUrl("admin/relatedProducts/create", array("product"=>$data->id))',
+                                                        'options'=>array('class'=>'view','title'=>'Add Related Product','target'=>'_blank'),
                                                 ),
 												'g'=>array(
-                                                        'label'=>'<i class="fa fa-search"></i>',
-                                                        'url'=>'Yii::app()->createUrl("admin/productGallery/view", array("id"=>$data->id))',
-                                                        'options'=>array('class'=>'view','title'=>'View'),
+                                                        'label'=>'<i class="fa fa-photo"></i>',
+                                                        'url'=>'Yii::app()->createUrl("admin/productGallery/create", array("product"=>$data->id))',
+                                                        'options'=>array('class'=>'view','title'=>'Add Product Images','target'=>'_blank'),
                                                 ),
 												'v'=>array(
                                                         'label'=>'<i class="fa fa-search"></i>',

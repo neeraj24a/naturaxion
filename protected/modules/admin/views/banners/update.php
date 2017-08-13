@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         Update
-        <small>Banner</small>
+        <small>Banners</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url() . '/admin/dashboard'; ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -14,7 +14,7 @@
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Banner</h3>
+                    <h3 class="box-title">Banners</h3>
                 </div>
                 <?php $this->renderPartial('_form', array('model' => $model)); ?>
             </div>

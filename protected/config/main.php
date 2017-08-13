@@ -8,11 +8,12 @@ require_once( dirname(__FILE__) . '/../components/helpers.php');
 require(dirname(__FILE__) . '/global.php');
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Remix',
-    'theme' => 'home',
+    'name' => 'remix',
+    'theme' => 'nat',
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
+    'defaultController' => 'home',
     'import' => array(
         'application.models.*',
         'application.components.*',
@@ -28,10 +29,6 @@ return array(
         ),
         'admin',
         'home',
-        'songs',
-        'videos',
-        'genre',
-        'user'
     ),
     // application components
     'components' => array(
@@ -52,6 +49,12 @@ return array(
         'urlManager' => array(
             'urlFormat' => 'path',
             'rules' => array(
+                'faq' => 'home/default/faq',
+                'products' => 'home/default/products',
+				'product' => 'home/default/product',
+                'about-us' => 'home/default/about',
+                'contact-us' => 'home/default/contact',
+                'media' => 'home/default/media',
                 '<module:(admin)>/<controller:\w+>/<action:\w+>/<id:(.*?)>' => '<module>/<controller>/<action>/<id>',
                 '<module:(admin)>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<module:(admin)>/<controller:\w+>' => '<module>/<controller>',

@@ -9,7 +9,7 @@
 )); ?>
 
 <div class="box-body" id="container">
-	<div class="form-group">
+	<div class="row form-group">
 		<div class="col-xs-6">
 			<?php echo $form->labelEx($model,'product'); ?>
 			<?php 
@@ -24,10 +24,10 @@
 			<?php echo $form->error($model,'product'); ?>
 		</div>
 	</div>
-	<div class="form-group" id="row">
+	<div class="row form-group" id="row">
 		<div class="col-xs-5">
 			<?php echo $form->labelEx($model,'image_type'); ?>
-			<?php echo CHtml::dropDownList('ProductGallery[image_type][]',array('m' => 'Main Image','g' => 'Gallery Image','t' => 'Thumbnail'),array('empty'=>'Select Image Type','class' => 'form-control')); ?>
+			<?php echo CHtml::dropDownList('ProductGallery[image_type][]',0,array('m' => 'Main Image','g' => 'Gallery Image','t' => 'Thumbnail'),array('empty'=>'Select Image Type','class' => 'form-control')); ?>
 			<?php echo $form->error($model,'image_type'); ?>
 		</div>
 		<div class="col-xs-6">
@@ -36,7 +36,9 @@
 			<?php echo $form->error($model,'image'); ?>
 		</div>
 		<div class="col-xs-1">
-			<a href="javascript:void(0);" class="add-row">Add More Image</a>
+			<a href="javascript:void(0);" class="add-row">
+				<i class="fa fa-plus"></i>
+			</a>
 		</div>
 	</div>
 </div>
@@ -49,10 +51,10 @@
 
 <script>
 	$(document).ready(function(){
-		var row = $("#row").html();
-		var r = row.find("a.add-row").text("Delete").addClass("removeRow").removeClass("add-row");
+		var row = $("#row");
 		$(document).on("click",".add-row",function(){
-			$("#container").append(r);
+			//var r = row.find("a.add-row").text("Delete").addClass("removeRow").removeClass("add-row");
+			$("#row").clone().appendTo("#container").find("a.add-row").html('<i class="fa fa-minus"></i>').addClass("removeRow").removeClass("add-row");
 		});
 		$(document).on("click",".removeRow",function(){
 			$(this).parent().parent().remove();

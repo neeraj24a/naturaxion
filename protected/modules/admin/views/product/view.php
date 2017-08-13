@@ -141,7 +141,7 @@
                                                 'edit' => array
                                                     (
                                                     'label' => 'EDIT',
-                                                    'url' => 'Yii::app()->createUrl("admin/relatedProduct/update", array("id"=>$data->id))',
+                                                    'url' => 'Yii::app()->createUrl("admin/relatedProducts/update", array("product"=>$data->product))',
                                                 ),
                                             ),
                                         ),

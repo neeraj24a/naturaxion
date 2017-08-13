@@ -16,7 +16,7 @@
 		<div class="col-xs-4">
 			<?php echo $form->label($model,'category'); ?>
 			<?php 
-				$all_cat = Category:model()->findAll(); 
+				$all_cat = Category::model()->findAll(); 
 				$list = CHtml::listData($all_cat, 'id', 'name');  
 			?>
 			<?php echo $form->dropDownList($model,'category',$list, array('empty'=>'Select Category','class' => 'form-control')); ?>
